@@ -1,0 +1,9 @@
+<div class="container">
+  <form>
+    <mat-form-field>
+      <input matInput placeholder="Search" [formControl] = "searchFormCtrl">
+      <mat-error *ngIf="!searchFormCtrl.valid && searchFormCtrl.touched">Query must be 3 characters long.</mat-error>
+    </mat-form-field>
+    <button mat-stroked-button color="primary" style="margin-left:3px" (click)="onSubmit()" [disabled]="!searchFormCtrl.valid">Search</button>
+  </form>
+</div>
