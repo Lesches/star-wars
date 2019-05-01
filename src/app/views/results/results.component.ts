@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import {SwapiService} from '../../models/swapi.service';
+import {ActivatedRoute} from '@angular/router';
 
 @Component({
   selector: 'app-results',
@@ -6,10 +8,22 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./results.component.scss']
 })
 export class ResultsComponent implements OnInit {
-
-  constructor() { }
+results: any;
+query: string;
+  constructor(private swapi: SwapiService, private route: ActivatedRoute) { }
 
   ngOnInit() {
+
+    this.route.paramMap.subscribe(pmap => {
+      this.query = pmap.get('query');
+      this.getResults();
+    });
   }
 
+  getResults(): void{
+    this.swapi.searchPeople(this.query).subscribe(folks => {
+console.log(folks);
+this.results = folks;
+    });
+  }
 }
